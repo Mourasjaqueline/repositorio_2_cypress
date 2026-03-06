@@ -131,7 +131,6 @@ Durante a execução na pipeline são gerados:
 
 Esses arquivos ficam disponíveis como Artifacts na aba Actions do repositório.
 
----
 
 ```
 ## Autora: Jaqueline Moura
