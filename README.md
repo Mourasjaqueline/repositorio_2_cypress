@@ -1,4 +1,4 @@
-# 🧪 Automação Sauce Demo - Cypress E2E
+![Cypress Tests](https://img.shields.io/github/actions/workflow/status/Mourasjaqueline/repositorio_2_cypress/main.yml?branch=master&label=Tests&style=for-the-badge)
 
 Este projeto contém a automação de testes **End-to-End (E2E)** para o fluxo crítico de compras da plataforma **Sauce Demo**, utilizando boas práticas modernas de engenharia de software e automação de testes com foco em UI.
 
@@ -93,7 +93,7 @@ Antes de executar o projeto, é necessário possuir instalado:
 ## 📥 Clonar o Repositório
 
 ```bash
-git clone https://github.com/Mourasjaqueline/repositorio_2_cypresss.git
+git clone https://github.com/Mourasjaqueline/repositorio_2_cypress.git
  Instalar Dependências
 npm install
  Execução dos Testes
