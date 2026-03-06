@@ -1,0 +1,35 @@
+name: E2E Checkout Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
+        with:
+          # Comando para rodar apenas o spec de checkout
+          spec: cypress/e2e/checkout.cy.js
+          browser: chrome
+
+      # Requisito: Integrar relatórios aos artefatos
+      - name: Upload Screenshots (on failure)
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Video
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos

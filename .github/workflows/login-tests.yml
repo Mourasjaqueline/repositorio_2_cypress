@@ -1,0 +1,28 @@
+name: Login Functional Tests
+on: 
+  workflow_dispatch: # Permite rodar manualmente pelo GitHub
+
+jobs:
+  login-validation:
+    runs-on: ubuntu-latest
+    strategy:
+      # Requisito: Configurar paralelização (Matrix Strategy)
+      fail-fast: false
+      matrix:
+        browser: [chrome, firefox] 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Login Tests on ${{ matrix.browser }}
+        uses: cypress-io/github-action@v6
+        with:
+          spec: cypress/e2e/login.cy.js
+          browser: ${{ matrix.browser }}
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: login-results-${{ matrix.browser }}
+          path: cypress/results

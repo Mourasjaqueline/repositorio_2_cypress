@@ -3,48 +3,62 @@ import ProductsPage from '../support/pages/ProductsPage'
 import CartPage from '../support/pages/CartPage'
 import CheckoutPage from '../support/pages/CheckoutPage'
 
-describe('Fluxo de Compra E2E', () => {
-    
+describe('Fluxo de Checkout', () => {
     let data;
 
-    beforeEach(() => {
-        // Carrega a fixture antes de cada teste para garantir que 'data' esteja disponível
+    before(() => {
         cy.fixture('checkoutData').then((f) => {
             data = f;
         });
     });
 
-    it('Deve realizar uma compra completa com sucesso usando massa de dados', () => {
-        // 1. Login
-        LoginPage.login('standard_user', 'secret_sauce');
+    beforeEach(() => {
+        LoginPage.visit();
+    });
 
-        // 2. Vitrine de Produtos
+    it('Dado que o usuário finalizou a compra com sucesso, ' +
+       'Quando ele clicar no botão "Back Home" para retornar à vitrine, ' + 
+       'Então deve validar que está na tela de produtos e que o carrinho está zerado', () => {
+        
+        // --- FLUXO DE COMPRA ---
+        LoginPage.login('standard_user', 'secret_sauce');
+        cy.url().should('include', '/inventory.html'); // Valida redirecionamento pós-login
+
         ProductsPage.validatePage(); 
         ProductsPage.addProducts(); 
-        ProductsPage.removeProduct(); // Remove a mochila
         ProductsPage.goToCart();
 
-        // 3. Carrinho
-        CartPage.validatePage();
-        // Passamos o ID do produto que queremos remover no carrinho
-        CartPage.removeProductAndCheckout('sauce-labs-bike-light');
+        CartPage.validatePage(); 
+        CartPage.removeProductAndCheckout(); 
 
-        // 4. Checkout: Informações
         CheckoutPage.fillInformation(
             data.customer.firstName, 
             data.customer.lastName, 
             data.customer.postalCode
         );
         
-        // 5. Checkout: Visão Geral e Finalização
         CheckoutPage.finishOrder();
 
-        // 6. Validação Final
-        CheckoutPage.elements.completeHeader().should('have.text', 'Thank you for your order!');
+        // --- VALIDAÇÃO DA TELA DE SUCESSO ---
+        CheckoutPage.elements.completeHeader()
+            .should('be.visible')
+            .and('have.text', 'Thank you for your order!');
+
+        // --- FLUXO DE RETORNO E VALIDAÇÕES FINAIS ---
         
-        // 7. Retorno e Limpeza
-        CheckoutPage.goBackHome();
-        ProductsPage.validatePage();
-        ProductsPage.validateEmptyCart(); 
+        // 1. Clica no botão Back Home
+        cy.get('[data-test="back-to-products"]').click();
+
+        // 2. Validação da URL (Garantir que voltou para o inventário)
+        cy.url().should('include', '/inventory.html');
+
+        // 3. Validação do Texto "Products" (Garantir que o título da tela está correto)
+        ProductsPage.elements.title()
+            .should('be.visible')
+            .and('have.text', 'Products');
+
+        // 4. Validação do Carrinho Vazio
+        // No SauceDemo, o badge (número) desaparece quando está vazio.
+        cy.get('.shopping_cart_badge').should('not.exist');
     });
 });

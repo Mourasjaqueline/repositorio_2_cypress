@@ -1,57 +1,64 @@
-// cypress/e2e/login.cy.js
 import LoginPage from '../support/pages/LoginPage'
 
+describe('Funcionalidade: Autenticação de Usuário', () => {
 
-describe('Funcionalidade de Login', () => {
-
+    // Setup: Garante que estamos na página inicial antes de cada cenário
     beforeEach(() => {
-        // O método visit() já limpa cookies e foca na URL base
         LoginPage.visit();
     });
 
-    it('Deve realizar login com sucesso', () => {
-        // Cenário de sucesso utilizando credenciais válidas
+    it('Dado que o usuário possui credenciais válidas, ' +
+       'Quando submeter o formulário com dados corretos, ' +
+       'Então deve ser redirecionado para a vitrine de produtos', () => {
+        
+        // Ação de login (Username e Password preenchidos)
         LoginPage.login('standard_user', 'secret_sauce');
         
-        // Valida se fomos redirecionados para a vitrine de produtos
+        // Validações de Sucesso
         cy.url().should('include', '/inventory.html');
-        cy.get('.title').should('have.text', 'Products');
+        cy.get('.title').should('be.visible').and('have.text', 'Products');
     });
 
-    it('Deve exibir erro ao tentar logar com campos vazios', () => {
-        // Clica no login sem preencher usuário ou senha
+    it('Dado que o usuário tenta logar sem preencher o nome de usuário, ' +
+       'Quando clicar no botão de entrar, ' +
+       'Então o sistema deve exibir um alerta de que o Username é obrigatório', () => {
+        
+        // Deixa o campo username vazio e tenta logar
         LoginPage.elements.loginButton().click();
 
-        // Valida a mensagem de erro específica para Username ausente
         LoginPage.elements.errorMessage()
             .should('be.visible')
             .and('have.text', 'Epic sadface: Username is required');
     });
 
-    it('Deve exibir erro ao tentar logar com usuário bloqueado', () => {
-        // Tenta logar com o usuário que sabemos estar travado
+    it('Dado que o usuário insere um usuário bloqueado no sistema, ' +
+       'Quando tentar realizar a autenticação, ' +
+       'Então deve visualizar uma mensagem de erro sobre o bloqueio da conta', () => {
+        
         LoginPage.login('locked_out_user', 'secret_sauce');
 
-        // Valida a mensagem de erro específica para bloqueio
         LoginPage.elements.errorMessage()
             .should('be.visible')
             .and('have.text', 'Epic sadface: Sorry, this user has been locked out.');
     });
 
-    it('Deve exibir erro quando a senha não é preenchida', () => {
-        // Preenche apenas o usuário e clica em login
+    it('Dado que o usuário esquece de preencher a senha, ' +
+       'Quando preencher apenas o usuário e tentar entrar, ' +
+       'Então o sistema deve alertar que a Password é obrigatória', () => {
+        
         LoginPage.elements.usernameInput().type('standard_user');
         LoginPage.elements.loginButton().click();
 
-        // Valida a mensagem de erro específica para Password ausente
         LoginPage.elements.errorMessage()
             .should('be.visible')
             .and('have.text', 'Epic sadface: Password is required');
     });
 
-    it('Deve exibir erro para credenciais inválidas', () => {
-        // Tenta logar com dados que não existem no sistema
-        LoginPage.login('usuario_inexistente', 'senha_errada');
+    it('Dado que o usuário insere credenciais inexistentes ou incorretas, ' +
+       'Quando submeter o acesso, ' +
+       'Então deve receber uma mensagem de erro de dados inválidos', () => {
+        
+        LoginPage.login('usuario_invalido', 'senha_incorreta');
 
         LoginPage.elements.errorMessage()
             .should('be.visible')
