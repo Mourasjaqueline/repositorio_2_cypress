@@ -1,4 +1,4 @@
-![Cypress Tests](https://img.shields.io/github/actions/workflow/status/Mourasjaqueline/repositorio_2_cypress/main.yml?branch=master&label=Tests&style=for-the-badge)
+# 🧪 Automação Sauce Demo - Cypress E2E
 
 Este projeto contém a automação de testes **End-to-End (E2E)** para o fluxo crítico de compras da plataforma **Sauce Demo**, utilizando boas práticas modernas de engenharia de software e automação de testes com foco em UI.
 
