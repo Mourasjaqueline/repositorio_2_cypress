@@ -1,84 +1,134 @@
-# Automação Sauce Demo - Cypress E2E//
+# 🧪 Automação Sauce Demo - Cypress E2E
 
-Este projeto contém a automação de testes de ponta a ponta (E2E) para o fluxo crítico de compras da plataforma Sauce Demo, utilizando práticas modernas de engenharia de software.
+Este projeto contém a automação de testes **End-to-End (E2E)** para o fluxo crítico de compras da plataforma **Sauce Demo**, utilizando boas práticas modernas de engenharia de software e automação de testes com foco em UI.
 
-Cenários de Teste (BDD & Integridade de Fluxo)
-Os testes foram estruturados seguindo o estilo BDD (Behavior-Driven Development), priorizando a clareza das regras de negócio e a robustez da automação:
+O objetivo é validar o funcionamento do fluxo principal de compra, desde o login até a finalização do pedido, garantindo a confiabilidade das principais jornadas do usuário.
 
-Validação de Navegação Crítica: Para garantir a confiabilidade do fluxo, o script realiza uma validação de "checkpoint" em cada transição de tela. Através da verificação do elemento title e da URL, o teste confirma a sincronização da aplicação antes de interagir com os elementos.
+---
 
-Autenticação: Validação de login com credenciais válidas, garantindo o redirecionamento correto para a vitrine e tratamento de erros para campos obrigatórios.
+# 📌 Cenários de Teste (BDD & Integridade de Fluxo)
 
-Fluxo de Checkout Completo: * Adição de produtos à vitrine com validação visual.
+Os testes foram estruturados seguindo o estilo **BDD (Behavior-Driven Development)**, priorizando a robustez da automação.
 
-Gerenciamento de itens (remoção estratégica de produtos na vitrine e no carrinho para testar a dinâmica da lista).
+### 🔎 Validação de Navegação Crítica
 
-Preenchimento seguro de informações de entrega (via Fixtures).
+Para garantir a confiabilidade do fluxo, o script realiza uma validação de **checkpoint em cada transição de tela**.
 
-Finalização do pedido com conferência de mensagem de sucesso.
+O teste confirma a sincronização da aplicação antes de interagir com os elementos através de:
 
-Ciclo de Retorno: Retorno à vitrine via botão "Back Home", com validação final da URL e verificação de que o contador do carrinho foi zerado com sucesso.
+- Validação do elemento **title**
+- Validação da **URL da página**
 
+---
 
+### 🔐 Autenticação
 
-🛠️ Tecnologias Utilizadas
-Cypress: Framework de testes.
+Validação do fluxo de login utilizando credenciais válidas.
 
-JavaScript: Linguagem de programação.
+Inclui verificações de:
 
-Page Object Model (POM): Arquitetura para manutenção e reutilização de código.
+- Redirecionamento correto para a **vitrine de produtos**
+- Tratamento de erros para **campos obrigatórios**
 
-GitHub Actions: Pipeline de CI para execução automatizada.
+---
 
-🏗️ Estrutura do Projeto
+### 🛒 Fluxo de Checkout Completo
+
+O fluxo principal de compra contempla as seguintes etapas:
+
+- Adição de produtos na vitrine
+- Gerenciamento de itens no carrinho
+- Remoção estratégica de produtos 
+- Preenchimento seguro das informações de entrega via Fixtures
+- Continuidade do checkout
+- Finalização do pedido com validação da mensagem de sucesso
+
+---
+
+### 🔄 Ciclo de Retorno
+
+Após a finalização da compra, o teste também valida o fluxo de retorno:
+
+- Retorno à vitrine utilizando o botão Back Home
+- Validação final da URL da aplicação
+- Verificação de que o contador do carrinho foi zerado
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+- **Cypress** → Framework de automação de testes E2E  
+- **JavaScript** → Linguagem utilizada para implementação dos testes  
+- **Page Object Model (POM)** → Arquitetura para organização e reutilização de código  
+- **GitHub Actions** → Pipeline de Integração Contínua (CI)
+
+---
+
+# 🏗️ Estrutura do Projeto
+
 
 cypress/
-  ├── e2e/              # Scripts de teste (Roteiros)
-  ├── fixtures/         # Massa de dados (JSON)
-  └── support/
-      └── pages/        # Page Objects (Elementos e Ações)
-.github/workflows/      # Configuração da Pipeline CI/CD
+├── e2e/ # Scripts de teste (cenários automatizados)
+├── fixtures/ # Massa de dados (arquivos JSON)
+└── support/
+└── pages/ # Page Objects (elementos e ações)
+
+.github/
+└── workflows/ # Configuração da pipeline CI/CD
 
 
+---
 
+# 🚀 Como Executar o Projeto
 
-🚀 Como Executar
+## Pré-requisitos
 
+Antes de executar o projeto, é necessário possuir instalado:
 
-Pré-requisitos
-Node.js: Versão recomendada 18 ou superior.
+- **Node.js** versão 18 ou superior
+- **Cypress** versão 13.x
 
-Cypress: Versão 13.x.
+---
 
-Instalação
-Clone o repositório:
+## 📥 Clonar o Repositório
 
-Bash
+```bash
 git clone https://github.com/Mourasjaqueline/repositorio_2_cypresss.git
-
-
-
-Instale as dependências:
-
-Bash
+ Instalar Dependências
 npm install
-Execução dos Testes
-Modo Interativo (Interface):
+ Execução dos Testes
+Modo Interativo (Interface do Cypress)
 
-Bash
+Executa os testes através da interface gráfica do Cypress.
+
 npx cypress open
-Modo Headless (Terminal + Geração de Vídeos):
+Modo Headless (Execução via Terminal)
 
-Bash
+Executa os testes diretamente no terminal.
+
+Durante essa execução:
+
+vídeos da execução são gerados automaticamente
+
+screenshots são capturados em caso de falha
+
 npx cypress run
 
 
-
-
 📈 Integração Contínua (CI)
-O projeto está integrado ao GitHub Actions. A cada push e pull request nas branches master, os testes são executados automaticamente.
 
-Evidências: Vídeos das execuções e screenshots em caso de falha são salvos como Artifacts na aba Actions do repositório.
+O projeto está integrado ao GitHub Actions.
 
+A cada push e pull request na branch master, os testes são executados automaticamente pela pipeline.
 
-# Por: Jaqueline Moura
+📊 Evidências de Execução
+
+Durante a execução na pipeline são gerados:
+
+🎥 Vídeos da execução dos testes
+
+📸 Screenshots em caso de falha
+
+Esses arquivos ficam disponíveis como Artifacts na aba Actions do repositório.
+
+# Autora: Jaqueline Moura
