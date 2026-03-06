@@ -5,38 +5,44 @@ import CheckoutPage from '../support/pages/CheckoutPage'
 
 describe('Fluxo de Compra E2E', () => {
     
-    // Criamos uma variável para armazenar os dados da fixture
     let data;
 
-    before(() => {
-        // Carrega o arquivo JSON da pasta fixtures
+    beforeEach(() => {
+        // Carrega a fixture antes de cada teste para garantir que 'data' esteja disponível
         cy.fixture('checkoutData').then((f) => {
             data = f;
         });
     });
 
     it('Deve realizar uma compra completa com sucesso usando massa de dados', () => {
+        // 1. Login
         LoginPage.login('standard_user', 'secret_sauce');
 
+        // 2. Vitrine de Produtos
         ProductsPage.validatePage(); 
         ProductsPage.addProducts(); 
-        ProductsPage.removeProduct(); 
+        ProductsPage.removeProduct(); // Remove a mochila
         ProductsPage.goToCart();
 
+        // 3. Carrinho
         CartPage.validatePage();
-        CartPage.removeProductAndCheckout();
+        // Passamos o ID do produto que queremos remover no carrinho
+        CartPage.removeProductAndCheckout('sauce-labs-bike-light');
 
-        // SUBSTITUIÇÃO: Usando os dados da fixture em vez de texto fixo
+        // 4. Checkout: Informações
         CheckoutPage.fillInformation(
             data.customer.firstName, 
             data.customer.lastName, 
             data.customer.postalCode
         );
         
+        // 5. Checkout: Visão Geral e Finalização
         CheckoutPage.finishOrder();
 
+        // 6. Validação Final
         CheckoutPage.elements.completeHeader().should('have.text', 'Thank you for your order!');
         
+        // 7. Retorno e Limpeza
         CheckoutPage.goBackHome();
         ProductsPage.validatePage();
         ProductsPage.validateEmptyCart(); 
