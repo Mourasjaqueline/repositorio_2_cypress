@@ -114,14 +114,20 @@ screenshots são capturados em caso de falha
 
 npx cypress run
 
+---
 
-📈 Integração Contínua (CI)
+
+```
+## 📈 Integração Contínua (CI)
 
 O projeto está integrado ao GitHub Actions.
 
 A cada push e pull request na branch master, os testes são executados automaticamente pela pipeline.
 
-📊 Evidências de Execução
+ 
+
+
+## 📊 Evidências de Execução
 
 Durante a execução na pipeline são gerados:
 
