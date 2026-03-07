@@ -1,4 +1,4 @@
-# 🧪 Automação Sauce Demo - Cypress E2E
+# 🧪 Automação de Testes de Interface com Cypress
 
 Este projeto contém a automação de testes **End-to-End (E2E)** para o fluxo crítico de compras da plataforma **Sauce Demo**, utilizando boas práticas modernas de engenharia de software e automação de testes com foco em UI.
 
