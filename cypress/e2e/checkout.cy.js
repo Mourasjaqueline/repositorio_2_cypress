@@ -16,9 +16,9 @@ describe('Fluxo de Checkout', () => {
         LoginPage.visit();
     });
 
-    it('Dado que o usuário finalizou a compra com sucesso, ' +
-       'Quando ele clicar no botão "Back Home" para retornar à vitrine, ' + 
-       'Então deve validar que está na tela de produtos e que o carrinho está zerado', () => {
+    it('Dado que o usuário esteja logado na plataforma, ' +
+       'Quando ele adicionar produtos ao carrinho, E concluir o fluxo de checkout ' + 
+       'Então deve exibir a mensagem exibida em tela confirmando a finalização do pedido', () => {
         
         // --- FLUXO DE COMPRA ---
         LoginPage.login('standard_user', 'secret_sauce');
@@ -49,16 +49,15 @@ describe('Fluxo de Checkout', () => {
         // 1. Clica no botão Back Home
         cy.get('[data-test="back-to-products"]').click();
 
-        // 2. Validação da URL (Garantir que voltou para o inventário)
+        // 2. Validação da URL para garantir que retornou à página de produtos
         cy.url().should('include', '/inventory.html');
 
-        // 3. Validação do Texto "Products" (Garantir que o título da tela está correto)
+        // 3. Validação do Texto "Products"
         ProductsPage.elements.title()
             .should('be.visible')
             .and('have.text', 'Products');
 
         // 4. Validação do Carrinho Vazio
-        // No SauceDemo, o badge (número) desaparece quando está vazio.
         cy.get('.shopping_cart_badge').should('not.exist');
     });
 });

@@ -3,7 +3,7 @@ class ProductsPage {
         // Título da página para validar se a navegação ocorreu com sucesso
         title: () => cy.get('.title'),
         
-        // Seletores data-test para garantir estabilidade nos testes
+
         addBackpack: () => cy.get('[data-test="add-to-cart-sauce-labs-backpack"]'),
         removeBackpack: () => cy.get('[data-test="remove-sauce-labs-backpack"]'),
         addBikeLight: () => cy.get('[data-test="add-to-cart-sauce-labs-bike-light"]'),
@@ -36,10 +36,8 @@ class ProductsPage {
         this.elements.cartLink().click();
     }
 
-    /**
-     * Validação Visual do Carrinho Limpo
-     * No Sauce Demo, o badge desaparece do DOM quando não há itens
-     */
+    
+     // Validação Visual do Carrinho Limpo    
     validateEmptyCart() {
         this.elements.cartBadge().should('not.exist');
     }
