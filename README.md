@@ -4,7 +4,7 @@
 
 Este repositório contém a automação de testes **End-to-End (E2E)** utilizando **Cypress**.
 
-O objetivo é validar o fluxo  de compra da aplicação **Sauce Demo**, garantindo que as principais jornadas do usuário funcionem corretamente.
+O objetivo é validar o fluxo  de compra da aplicação **Sauce Demo**, garantindo que a principal jornada do usuário funcione corretamente.
 
 O projeto também está integrado ao **GitHub Actions**, permitindo execução automática dos testes a cada atualização no repositório.
 
@@ -21,7 +21,7 @@ Os cenários implementados incluem:
 * Validação de erros de login
 * Navegação na vitrine de produtos
 * Adição e remoção de itens no carrinho
-* Fluxo completo de checkout
+* Fluxo de checkout
 * Finalização do pedido
 
 Também foram implementados **cenários negativos**, incluindo:
