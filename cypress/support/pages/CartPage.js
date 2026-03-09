@@ -3,7 +3,7 @@ class CartPage {
     elements = {
         title: () => cy.get('.title'),
         checkoutButton: () => cy.get('[data-test="checkout"]'),
-        // Seletor que aceita qualquer produto para remover
+        
         removeBtn: (item) => cy.get(`[data-test="remove-${item}"]`)
     }
 
@@ -11,7 +11,7 @@ class CartPage {
         this.elements.title().should('be.visible').and('have.text', 'Your Cart');
     }
 
-    // Método com o nome exato que o seu script está chamando
+ 
     removeProductAndCheckout(productName) {
         if (productName) {
             this.elements.removeBtn(productName).click();

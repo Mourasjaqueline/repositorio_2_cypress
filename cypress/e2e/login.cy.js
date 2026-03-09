@@ -2,7 +2,7 @@ import LoginPage from '../support/pages/LoginPage'
 
 describe('Funcionalidade: Autenticação de Usuário', () => {
 
-    // Setup: Garante que estamos na página inicial antes de cada cenário
+ 
     beforeEach(() => {
         LoginPage.visit();
     });
@@ -11,7 +11,7 @@ describe('Funcionalidade: Autenticação de Usuário', () => {
        'Quando submeter o formulário com dados corretos, ' +
        'Então deve ser redirecionado para a vitrine de produtos', () => {
         
-        // Ação de login (Username e Password preenchidos)
+       
         LoginPage.login('standard_user', 'secret_sauce');
         
         // Validações de Sucesso

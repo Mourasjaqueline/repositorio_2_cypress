@@ -14,19 +14,19 @@ class ProductsPage {
         cartLink: () => cy.get('[data-test="shopping-cart-link"]')
     }
 
-    // Valida se o título da página é "Products"
+   
     validatePage() {
         this.elements.title().should('be.visible').and('have.text', 'Products');
     }
 
-    // Adiciona os três produtos iniciais do seu fluxo
+    // Adiciona os três produtos iniciais ao carrinho
     addProducts() {
         this.elements.addBackpack().click();
         this.elements.addBikeLight().click();
         this.elements.addBoltTShirt().click();
     }
 
-    // Remove apenas a mochila (Backpack) ainda na vitrine
+    
     removeProduct() {
         this.elements.removeBackpack().click();
     }
