@@ -4,7 +4,8 @@
 
 Este repositório contém a automação de testes **End-to-End (E2E)** utilizando **Cypress**.
 
-O objetivo é validar o fluxo  de compra da aplicação **Sauce Demo**, garantindo que a principal jornada do usuário funcione corretamente.
+O objetivo é validar o fluxo  de compra da aplicação **Sauce Demo**, garantindo que a principal jornada do usuário funcione corretamente. O projeto utiliza o padrão Page Object Model (POM),
+onde as ações e elementos das páginas são organizados em arquivos dentro da pasta support/pages.
 
 O projeto também está integrado ao **GitHub Actions**, permitindo execução automática dos testes a cada atualização no repositório.
 
@@ -44,14 +45,15 @@ Também foram implementados **cenários negativos**, incluindo:
 ## 📂 Estrutura do Projeto
 
 ```
-cypress
+├── cypress
+│   ├── e2e
+│   ├── fixtures
+│   └── support
+│       └── pages
 │
-├── e2e
-├── fixtures
-└── support
-    └── pages
-
-.github
+├── cypress.config.js
+├── package.json
+└── README.md
 └── workflows
 ```
 
@@ -61,8 +63,8 @@ cypress
 
 Para executar o projeto é necessário possuir instalado:
 
-* Node.js 18+
-* Cypress
+Node.js 18 ou superior
+npm
 
 ---
 
@@ -71,7 +73,8 @@ Para executar o projeto é necessário possuir instalado:
 Clone o repositório:
 
 ```bash
-git clone https://github.com/Mourasjaqueline/repositorio_2_cypress.git
+git clone https://github.com/Mourasjaqueline/cypress-ui-tests2.git
+cd repositorio_2_cypress
 ```
 
 Instale as dependências:
@@ -114,6 +117,10 @@ Durante a execução dos testes são gerados automaticamente:
 * **Screenshots em caso de falha**
 
 Esses arquivos ficam disponíveis como **Artifacts** na aba **Actions** do repositório.
+
+Após a execução da pipeline:
+
+Actions → Selecionar execução → Artifacts → Download
 
 ---
 
